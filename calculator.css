@@ -19,7 +19,29 @@ h1{
 .display{
     background-color: rgb(220, 239, 255);
     height: 30%;
+    text-align: right;
+    position: relative;
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: column;
+   
+   
+     
+}
+.currentOp{
+    background-color: aqua;
+    height: 60%;
+    padding: 5px;
+    font-size: 25px;
+   
     
+}
+.lastOp{
+height: 25%;
+padding: 5px 5px;
+font-size: 19px;
+
 }
 
 .operations{
@@ -98,11 +120,15 @@ h1{
     font-weight: bolder;
     
 }
+
 .operator{
     background-color:rgb(159, 185, 208);
     height: 16%;
 }
-
+#equals{
+    background-color:rgb(30, 105, 171);
+    height: 16%;
+}
 .dv{
     width: 200px;
     height: 200px;
