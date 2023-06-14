@@ -41,7 +41,7 @@ function calculate(){
     equalsPressed = true;
     let m = operate(firstOperand, secondOperand, operator);
     resetVars(m);
-    lastOp.textContent = currentOp.textContent.concat('=');
+    lastOp.textContent = currentOp.textContent.concat(' =');
     currentOp.textContent = m;
 }
 function addNumbers(nm){
