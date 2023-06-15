@@ -18,7 +18,7 @@ h1{
     border-radius: 10px;
 }
 .display{
-    background-color: rgb(220, 239, 255);
+    background-color: rgb(207, 230, 250);
     height: 25%;
     text-align: right;
     position: relative;
@@ -104,6 +104,10 @@ button{
     width: 50%;
     height: 60px;
 }
+#zero:hover, #dot:hover{
+    transform: scale(1.02);
+    background-color: rgb(207, 230, 250);
+}
 .num{
     background-color: rgb(159, 185, 208);
     height: 60px;
@@ -138,8 +142,11 @@ button{
     height: 16%;
 }
 #equals{
-    background-color:rgb(30, 105, 171);
+    background-color: rgb(207, 230, 250);
     height: 16%;
+}
+#equals:hover{
+    background-color: rgb(121, 204, 230);
 }
 .dv{
     width: 200px;
@@ -159,6 +166,6 @@ button{
 }
 button:hover{
     transform: scale(1.02);
-    background-color: beige;
+    background-color: rgb(207, 230, 250);
     
 }
