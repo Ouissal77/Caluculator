@@ -3,8 +3,6 @@ let firstOperand = '';
 let secondOperand = '';
 let operatorPressed = false;
 let equalsPressed = false;
-let v = 0;
-let c = '**';
 let numBtns = document.querySelectorAll('.num');
 let operatorsBtn = document.querySelectorAll('.operator');
 let equalsBtn = document.getElementById('equals');
@@ -13,6 +11,7 @@ let currentOp = document.querySelector('.currentOp');
 let lastOp = document.querySelector('.lastOp');
 let DeleteBtn = document.querySelector('.delete');
 let clearBtn = document.querySelector('.clear');
+let clickedOnce=false;
 
 DeleteBtn.addEventListener('click',Delete);
 clearBtn.addEventListener('click',clear)
@@ -38,14 +37,20 @@ function resetVars(result) {
 }
 
 function calculate(){
-    equalsPressed = true;
-    let m = operate(firstOperand, secondOperand, operator);
-    resetVars(m);
-    lastOp.textContent = currentOp.textContent.concat(' =');
-    currentOp.textContent = m;
+    if(!clickedOnce){
+        equalsPressed = true;
+        lastOp.textContent = currentOp.textContent.concat(' =');
+        let m = operate(firstOperand, secondOperand, operator);
+        resetVars(m);
+        currentOp.textContent = m;
+        clickedOnce=true;
+    }
+       
+    
 }
 function addNumbers(nm){
     if (!operatorPressed) {
+        clickedOnce=false;
         firstOperand = firstOperand.concat(nm.textContent);
         if (currentOp.textContent === '0') {
             currentOp.textContent = nm.textContent;
@@ -58,6 +63,7 @@ function addNumbers(nm){
     }
 }
 function addOperator(op){
+    clickedOnce=false;
     operatorPressed = true;
         if (!currentOp.textContent.includes(op.textContent)) {
             operator = op.textContent;
