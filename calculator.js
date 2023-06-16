@@ -3,6 +3,9 @@ let firstOperand = '';
 let secondOperand = '';
 let operatorPressed = false;
 let equalsPressed = false;
+let clickedOnce=false;
+let operators=['^','+','-','x','÷'];
+
 let numBtns = document.querySelectorAll('.num');
 let operatorsBtn = document.querySelectorAll('.operator');
 let equalsBtn = document.getElementById('equals');
@@ -11,7 +14,6 @@ let currentOp = document.querySelector('.currentOp');
 let lastOp = document.querySelector('.lastOp');
 let DeleteBtn = document.querySelector('.delete');
 let clearBtn = document.querySelector('.clear');
-let clickedOnce=false;
 
 DeleteBtn.addEventListener('click',Delete);
 clearBtn.addEventListener('click',clear)
@@ -37,20 +39,20 @@ function resetVars(result) {
 }
 
 function calculate(){
-    if(!clickedOnce){
+    if(!equalsPressed){
         equalsPressed = true;
         lastOp.textContent = currentOp.textContent.concat(' =');
         let m = operate(firstOperand, secondOperand, operator);
         resetVars(m);
         currentOp.textContent = m;
-        clickedOnce=true;
+        //clickedOnce=true;
     }
        
     
 }
 function addNumbers(nm){
     if (!operatorPressed) {
-        clickedOnce=false;
+       
         firstOperand = firstOperand.concat(nm.textContent);
         if (currentOp.textContent === '0') {
             currentOp.textContent = nm.textContent;
@@ -62,13 +64,38 @@ function addNumbers(nm){
         currentOp.textContent += nm.textContent;
     }
 }
+let prev='';
 function addOperator(op){
-    clickedOnce=false;
+    console.log('ff -- '+firstOperand)
+    console.log('sec--  '+secondOperand +'op = '+ operatorPressed)
+    let lastElem = currentOp.textContent.charAt(currentOp.textContent.length-1);
+    let lastResult='';
+    
+    if(!operators.includes(lastElem)){
+        operator = op.textContent;
+        currentOp.textContent += op.textContent;
+        
+    }
+    else{
+        operator = op.textContent;
+        currentOp.textContent=currentOp.textContent.slice(0,-1);
+        currentOp.textContent += op.textContent;
+       
+    }
     operatorPressed = true;
-        if (!currentOp.textContent.includes(op.textContent)) {
-            operator = op.textContent;
-            currentOp.textContent += op.textContent;
-        }
+    if(firstOperand!='' && secondOperand!=''){
+        console.log('oprt is '+ prev)
+        lastResult=operate(firstOperand,secondOperand,prev);
+        resetVars(lastResult);
+        operatorPressed=true;
+        console.log('ff  '+firstOperand)
+        console.log('sec  '+secondOperand +'op = '+ operatorPressed)
+    }
+    else{
+        prev=operator;
+    }
+    
+        
 }
 
 function store() {
@@ -124,8 +151,8 @@ function Delete(){
         if (!equalsPressed && operatorPressed) {
             secondOperand = secondOperand.slice(0, -1);
 
-
-        }
+       }
+     
 
 }
 function clear(){
@@ -157,6 +184,10 @@ function divide(a, b) {
 function power(a,b){
     return Math.pow(a,b);
 }
+
+
+
+
 
 
 
