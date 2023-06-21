@@ -39,47 +39,50 @@ function resetVars(result) {
 }
 
 function calculate(){
+    console.log('ff -- '+firstOperand)
+    console.log('sec--  '+secondOperand +'op = '+ operatorPressed)
     if(!equalsPressed){
         equalsPressed = true;
         lastOp.textContent = currentOp.textContent.concat(' =');
         let m = operate(firstOperand, secondOperand, operator);
+        m= Math.round(m * 1000) / 1000
         resetVars(m);
         currentOp.textContent = m;
         //clickedOnce=true;
     }
-       
+   
     
 }
+
 function addNumbers(nm){
     if (!operatorPressed) {
        
-        firstOperand = firstOperand.concat(nm.textContent);
+        firstOperand = firstOperand.concat(nm);
         if (currentOp.textContent === '0') {
-            currentOp.textContent = nm.textContent;
+            currentOp.textContent = nm;
         }
-        else currentOp.textContent += nm.textContent;
+        else currentOp.textContent += nm;
     }
     if (!equalsPressed && operatorPressed) {
-        secondOperand = secondOperand.concat(nm.textContent)
-        currentOp.textContent += nm.textContent;
+        secondOperand = secondOperand.concat(nm)
+        currentOp.textContent += nm ;
     }
 }
 let prev='';
 function addOperator(op){
-    console.log('ff -- '+firstOperand)
-    console.log('sec--  '+secondOperand +'op = '+ operatorPressed)
+   
     let lastElem = currentOp.textContent.charAt(currentOp.textContent.length-1);
     let lastResult='';
     
     if(!operators.includes(lastElem)){
-        operator = op.textContent;
-        currentOp.textContent += op.textContent;
+        operator = op;
+        currentOp.textContent += op;
         
     }
     else{
-        operator = op.textContent;
+        operator = op;
         currentOp.textContent=currentOp.textContent.slice(0,-1);
-        currentOp.textContent += op.textContent;
+        currentOp.textContent += op;
        
     }
     operatorPressed = true;
@@ -98,18 +101,35 @@ function addOperator(op){
         
 }
 
+function addDot(){
+    if (!operatorPressed) {
+        if (!firstOperand.includes('.')) {
+            firstOperand = firstOperand.concat(dotBtn.textContent);
+            currentOp.textContent += dotBtn.textContent;
+        }
+
+    }
+    if (!equalsPressed && operatorPressed) {
+        if (!secondOperand.includes('.')) {
+            secondOperand = secondOperand.concat(dotBtn.textContent);
+            currentOp.textContent += dotBtn.textContent;
+        }
+
+    }
+}
+
 function store() {
 
     equalsBtn.addEventListener('click', calculate)
 
     operatorsBtn.forEach( function(op){
-        op.addEventListener('click',()=> addOperator(op));
+        op.addEventListener('click',()=> addOperator(op.textContent));
     })
 
     
 
     numBtns.forEach( function(nm){
-        nm.addEventListener('click',()=> addNumbers(nm));
+        nm.addEventListener('click',()=> addNumbers(nm.textContent));
     }
 
     )
@@ -117,23 +137,7 @@ function store() {
 
 
 
-    dotBtn.addEventListener('click', function () {
-        console.log(operatorPressed);
-        if (!operatorPressed) {
-            if (!firstOperand.includes('.')) {
-                firstOperand = firstOperand.concat(dotBtn.textContent);
-                currentOp.textContent += dotBtn.textContent;
-            }
-
-        }
-        if (!equalsPressed && operatorPressed) {
-            if (!secondOperand.includes('.')) {
-                secondOperand = secondOperand.concat(dotBtn.textContent);
-                currentOp.textContent += dotBtn.textContent;
-            }
-
-        }
-    })
+    dotBtn.addEventListener('click', addDot)
 
 }
 
@@ -162,13 +166,29 @@ function clear(){
 
 }
 
+function keyListener(e){
+   
+   if(e.key>=0 && e.key<=9) addNumbers(e.key)
+  
+   console.log(e.key)
+   if(operators.includes(e.key) || e.key==='/' || e.key==='*'){
+    if(e.key==='/' )  addOperator('÷')
+    else if (e.key==='*') addOperator('x')
+    else addOperator(eye.key)
+   
+   }
+   if(e.key==='.') addDot();
+   if(e.key==='=' || e.key==='Enter') calculate();
+   if(e.key==='Backspace') Delete();
+   if(e.key==='Escape') clear();
+   
+}
+
+window.addEventListener('keydown',keyListener);
 
 
 
 store();
-
-
-
 
 
 function add(a, b) { return a + b; }
