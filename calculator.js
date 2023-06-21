@@ -17,7 +17,18 @@ let clearBtn = document.querySelector('.clear');
 
 DeleteBtn.addEventListener('click',Delete);
 clearBtn.addEventListener('click',clear)
+window.addEventListener('keydown',keyListener);
 
+
+equalsBtn.addEventListener('click', calculate)
+
+operatorsBtn.forEach( function(op){
+    op.addEventListener('click',()=> addOperator(op.textContent));})
+
+numBtns.forEach( function(nm){
+    nm.addEventListener('click',()=> addNumbers(nm.textContent));})
+
+dotBtn.addEventListener('click', addDot)
 
 
 
@@ -118,28 +129,6 @@ function addDot(){
     }
 }
 
-function store() {
-
-    equalsBtn.addEventListener('click', calculate)
-
-    operatorsBtn.forEach( function(op){
-        op.addEventListener('click',()=> addOperator(op.textContent));
-    })
-
-    
-
-    numBtns.forEach( function(nm){
-        nm.addEventListener('click',()=> addNumbers(nm.textContent));
-    }
-
-    )
-
-
-
-
-    dotBtn.addEventListener('click', addDot)
-
-}
 
 
 function Delete(){
@@ -174,7 +163,7 @@ function keyListener(e){
    if(operators.includes(e.key) || e.key==='/' || e.key==='*'){
     if(e.key==='/' )  addOperator('÷')
     else if (e.key==='*') addOperator('x')
-    else addOperator(eye.key)
+    else addOperator(e.key)
    
    }
    if(e.key==='.') addDot();
@@ -184,11 +173,9 @@ function keyListener(e){
    
 }
 
-window.addEventListener('keydown',keyListener);
 
 
 
-store();
 
 
 function add(a, b) { return a + b; }
